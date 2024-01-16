@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
+  <body>
+    <script>
+      // Create a scene
+      const scene = new THREE.Scene();
+
+      // Create a camera
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+
+      // Create a WebGLRenderer
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Create bar data (heights of bars)
+      const barData = [2, 3, 4];
+
+      // Create and position bars
+      const barGeometry = new THREE.BoxGeometry(1, 1, 1);
+      const barMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+      barData.forEach((height, index) => {
+        const bar = new THREE.Mesh(barGeometry, barMaterial);
+        bar.position.set(index * 2 - 2, height / 2, 0); // Adjust positions and spacing
+        bar.scale.set(1, height, 1); // Adjust the height of the bars
+        scene.add(bar);
+      });
+
+      // Add animation to rotate bars (optional)
+      const animate = () => {
+        requestAnimationFrame(animate);
+
+        scene.rotation.y += 0.01;
+
+        renderer.render(scene, camera);
+      };
+
+      animate();
+    </script>
+  </body>
+</html>
