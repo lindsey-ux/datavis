@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.2.1/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <a-scene embedded arjs>
+      <a-marker-camera preset="hiro">
+        <!-- Container for the visualization (will be replaced) -->
+        <a-entity id="visualizationContainer" position="0 0 0"></a-entity>
+      </a-marker-camera>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- JavaScript to load and display the visualization -->
+    <script>
+      // Function to load and display the 3D bar chart from a separate file
+      function loadVisualization() {
+        // Load the 3D bar chart visualization HTML file
+        fetch('bar_chart.html') // Replace with the path to your visualization file
+          .then((response) => response.text())
+          .then((html) => {
+            // Replace the contents of the visualization container
+            document.getElementById('visualizationContainer').innerHTML = html;
+          });
+      }
+
+      // Call the loadVisualization function when the marker is detected
+      document.querySelector('a-marker-camera').addEventListener('markerFound', loadVisualization);
+    </script>
+  </body>
+</html>
