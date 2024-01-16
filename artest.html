@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.2.1/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <a-scene embedded arjs>
+      <a-marker-camera preset="hiro">
+        <!-- Container for the visualization (will be replaced) -->
+        <a-entity id="visualizationContainer" position="0 0 0"></a-entity>
+
+        <!-- Buttons to switch between visualizations -->
+        <button onclick="loadVisualization('C:\Users\lindsey.sampang\OneDrive - HUB24 Management Services Pty Ltd\Documents\datavis\datavistest.html')">Visualization 1</button>
+        <button onclick="loadVisualization('visualization2.html')">Visualization 2</button>
+      </a-marker-camera>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- JavaScript to load visualizations -->
+    <script>
+      function loadVisualization(visualizationURL) {
+        // Load the specified visualization HTML file
+        fetch(visualizationURL)
+          .then((response) => response.text())
+          .then((html) => {
+            // Replace the contents of the visualization container
+            document.getElementById('visualizationContainer').innerHTML = html;
+          });
+      }
+    </script>
+  </body>
+</html>
